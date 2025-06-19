@@ -1,17 +1,21 @@
-\documentclass[11pt, a4paper]{article}
+\documentclass[11pt, a4paper]{scrbook}
 %start preamble
-\usepackage{preamble}
-\input{macros/macros}
+\input{preamble}
 %end preamble
 \usepackage{subfiles} 
-\title{Title} 
-\author{Name}
+\title{Undergraduate Math} 
+\author{Everett}
+
 \begin{document}
+\frontmatter
 \maketitle
-\newpage \tableofcontents
-\newpage \subfile{sections/section1}
-\newpage \subfile{sections/section2}
-...
-\newpage \bibliography{references}{}
-\bibliographystyle{alpha} 
+\newpage
+\tableofcontents
+\mainmatter
+\part{Abstarct Algebra}
+\parttoc
+\subfile{sections/abstract/group.tex}
+\subfile{sections/abstract/ring.tex}
+\backmatter
+
 \end{document}
