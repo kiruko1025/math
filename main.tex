@@ -1,9 +1,7 @@
-\documentclass[11pt, a4paper]{scrbook}
-%start preamble
+\documentclass[12pt,a4paper,oneside]{scrbook}
 \input{preamble}
-%end preamble
 \usepackage{subfiles} 
-\title{Undergraduate Math} 
+\title{Math} 
 \author{Everett}
 
 \begin{document}
@@ -11,8 +9,11 @@
 \maketitle
 \newpage
 \tableofcontents
+
 \mainmatter
-\part{Abstarct Algebra}
+\part{Discrete Math}
+\parttoc
+\part{Abstract Algebra}
 \parttoc
 \subfile{sections/abstract/group.tex}
 \subfile{sections/abstract/ring.tex}

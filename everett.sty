@@ -1,12 +1,11 @@
 \ProvidesPackage{everett}
 
 % Arguments
-\newif\ifcolorful\colorfulfalse
-
-\DeclareOption{colorful}{\colorfultrue}
-
+\newif\ifdark\darkfalse
+\DeclareOption{dark}{\darktrue}
 \ProcessOptions\relax
 
+% Packages
 \usepackage{lmodern}
 \usepackage[pdfusetitle]{hyperref}
 \ExplSyntaxOn
@@ -18,8 +17,6 @@
 }
 \ExplSyntaxOff
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{amsmath, amsfonts, mathtools, amsthm, amssymb}
 \usepackage{textcomp}
 \usepackage{import}
@@ -59,11 +56,99 @@
 \usepackage{bm}
 \usepackage{systeme}
 
+% Color Palette
+\ifdark
+  % -------- Mocha (dark) --------
+  \definecolor{ctpRosewater}{HTML}{F5E0DC}
+  \definecolor{ctpFlamingo}{HTML}{F2CDCD}
+  \definecolor{ctpPink}{HTML}{F5C2E7}
+  \definecolor{ctpMauve}{HTML}{CBA6F7}
+  \definecolor{ctpRed}{HTML}{F38BA8}
+  \definecolor{ctpMaroon}{HTML}{EBA0AC}
+  \definecolor{ctpPeach}{HTML}{FAB387}
+  \definecolor{ctpYellow}{HTML}{F9E2AF}
+  \definecolor{ctpGreen}{HTML}{A6E3A1}
+  \definecolor{ctpTeal}{HTML}{94E2D5}
+  \definecolor{ctpSky}{HTML}{89DCEB}
+  \definecolor{ctpSapphire}{HTML}{74C7EC}
+  \definecolor{ctpBlue}{HTML}{89B4FA}
+  \definecolor{ctpLavender}{HTML}{B4BEFE}
+  \definecolor{ctpText}{HTML}{CDD6F4}
+  \definecolor{ctpSubtext1}{HTML}{BAC2DE}
+  \definecolor{ctpSubtext0}{HTML}{A6ADC8}
+  \definecolor{ctpOverlay2}{HTML}{9399B2}
+  \definecolor{ctpOverlay1}{HTML}{7F849C}
+  \definecolor{ctpOverlay0}{HTML}{6C7086}
+  \definecolor{ctpSurface2}{HTML}{585B70}
+  \definecolor{ctpSurface1}{HTML}{45475A}
+  \definecolor{ctpSurface0}{HTML}{313244}
+  \definecolor{ctpBase}{HTML}{1E1E2E}
+  \definecolor{ctpMantle}{HTML}{181825}
+  \definecolor{ctpCrust}{HTML}{11111B}
+  % Semantic mappings
+  \colorlet{ctpChapter}{ctpBlue} % chapter / toc accent
+  \colorlet{ctpDefinition}{ctpMauve}
+  \colorlet{ctpExample}{ctpTeal}
+  \colorlet{ctpTheorem}{ctpMauve}
+  \colorlet{ctpRemark}{ctpYellow}
+  \colorlet{ctpProof}{ctpRed}
+  \colorlet{ctpExplanation}{ctpTeal}
+  % Hyperref colors (so they are readable on dark background)
+  \hypersetup{
+    colorlinks,
+    linkcolor=ctpPeach,
+    citecolor=ctpGreen,
+    urlcolor=ctpSky
+  }
+\else
+  % -------- Latte (light) --------
+  \definecolor{ctpRosewater}{HTML}{DC8A78}
+  \definecolor{ctpFlamingo}{HTML}{DD7878}
+  \definecolor{ctpPink}{HTML}{EA76CB}
+  \definecolor{ctpMauve}{HTML}{8839EF}
+  \definecolor{ctpRed}{HTML}{D20F39}
+  \definecolor{ctpMaroon}{HTML}{E64553}
+  \definecolor{ctpPeach}{HTML}{FE640B}
+  \definecolor{ctpYellow}{HTML}{DF8E1D}
+  \definecolor{ctpGreen}{HTML}{40A02B}
+  \definecolor{ctpTeal}{HTML}{179299}
+  \definecolor{ctpSky}{HTML}{04A5E5}
+  \definecolor{ctpSapphire}{HTML}{209FB5}
+  \definecolor{ctpBlue}{HTML}{1E66F5}
+  \definecolor{ctpLavender}{HTML}{7287FD}
+  \definecolor{ctpText}{HTML}{4C4F69}
+  \definecolor{ctpSubtext1}{HTML}{5C5F77}
+  \definecolor{ctpSubtext0}{HTML}{6C6F85}
+  \definecolor{ctpOverlay2}{HTML}{7C7F93}
+  \definecolor{ctpOverlay1}{HTML}{8C8FA1}
+  \definecolor{ctpOverlay0}{HTML}{9CA0B0}
+  \definecolor{ctpSurface2}{HTML}{ACB0BE}
+  \definecolor{ctpSurface1}{HTML}{BCC0CC}
+  \definecolor{ctpSurface0}{HTML}{CCD0DA}
+  \definecolor{ctpBase}{HTML}{EFF1F5}
+  \definecolor{ctpMantle}{HTML}{E6E9EF}
+  \definecolor{ctpCrust}{HTML}{DCE0E8}
+  % Semantic mappings
+  \colorlet{ctpChapter}{ctpLavender}
+  \colorlet{ctpDefinition}{ctpMauve}
+  \colorlet{ctpExample}{ctpTeal}
+  \colorlet{ctpTheorem}{ctpMauve}
+  \colorlet{ctpRemark}{ctpYellow}
+  \colorlet{ctpProof}{ctpRed}
+  \colorlet{ctpExplanation}{ctpTeal}
+  % Hyperref colors (darker for light background)
+  \hypersetup{
+    colorlinks,
+    linkcolor=ctpBlue,
+    citecolor=ctpGreen,
+    urlcolor=ctpTeal
+  }
+\fi
+
+
 % tikz
 \usepackage{tikz}
-\usepackage{tikz-cd}
 \usetikzlibrary{intersections, angles, quotes, calc, positioning}
-\usetikzlibrary{arrows.meta}
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.13}
 
@@ -72,21 +157,10 @@
     force/.style={thick, {Circle[length=2pt]}-stealth, shorten <=-1pt}
 }
 
-%%fakesection Links (hyperref loaded earlier implicitly)
-\hypersetup{
-	linkcolor={red!50!black},
-	citecolor={green!50!black},
-	urlcolor={blue!80!black},
-	pdfkeywords={napkin,math},
-	pdfsubject={web.evanchen.cc},
-	colorlinks,
-}
 
-%%fakesection Commutative diagrams
+%%Commutative diagrams
 \usepackage{tikz-cd}
 \usetikzlibrary{arrows,arrows.meta}
-% make a larger hook
-% https://tex.stackexchange.com/questions/514451/how-to-define-a-new-hooked-arrow
 \makeatletter
 \pgfdeclarearrow{
 	name=xGlyph,
@@ -117,7 +191,7 @@
 	}
 }
 
-%%fakesection Page layout
+%%Page layout
 \usepackage[headsepline]{scrlayer-scrpage}
 \renewcommand{\headfont}{}
 \addtolength{\textheight}{3.14cm}
@@ -126,10 +200,10 @@
 
 \def\shortdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
 \def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+\automark[chapter]{chapter}
 
 
 \rohead{\footnotesize\thepage}
-\rehead{\footnotesize \textbf{\sffamily Napkin}, by \emph{Evan Chen} (\napkinversion)}
 \lehead{\footnotesize\thepage}
 \lohead{\footnotesize \leftmark}
 \chead{}
@@ -139,28 +213,26 @@
 \lofoot{}
 %\cfoot{\pagemark}
 
-%%fakesection Fancy section and chapter heads
-\renewcommand*{\sectionformat}{\color{purple}\S\thesection\autodot\enskip}
-\renewcommand*{\subsectionformat}{\color{purple}\S\thesubsection\autodot\enskip}
-\newcommand{\problemhead}{A few harder problems to think about}
+%%section and chapter head
+\renewcommand*{\sectionformat}{\color{ctpChapter}\thesection\autodot\enskip}
+\renewcommand*{\subsectionformat}{\color{ctpChapter}\thesubsection\autodot\enskip}
 \renewcommand{\thesubsection}{\thesection.\roman{subsection}}
 
 \addtokomafont{chapterprefix}{\raggedleft}
 \RedeclareSectionCommand[beforeskip=0.5em]{chapter}
 \renewcommand*{\chapterformat}{%
 \mbox{\scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
-\scalebox{2.718}{\color{purple}\thechapter\autodot}\enskip}}
+\scalebox{2.718}{\color{ctpChapter}\thechapter\autodot}\enskip}}
 
 \addtokomafont{partprefix}{\rmfamily}
-\renewcommand*{\partformat}{\color{purple}\scalebox{2.5}{\thepart}}
+\renewcommand*{\partformat}{\color{ctpChapter}\scalebox{2.5}{\thepart}}
 
-%%fakesection Theorems
+%%Theorems
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable,skins,hooks}
 
 % patch tcolorbox to support continuation of a paragraph
 % after box
-% from https://tex.stackexchange.com/questions/568782/
 \makeatletter
 \tcbset{
 	after app={%
@@ -187,71 +259,75 @@
 
 \theoremstyle{definition}
 
+
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{ForestGreen!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpMauve},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=ForestGreen, backgroundcolor=ForestGreen!5,
+        linecolor=ctpMauve,
+        backgroundcolor=ctpMauve!8,
     }
-]{thmgreenbox}
+]{thmgreenbox} % definitions
 
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpTeal},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue, backgroundcolor=NavyBlue!5,
+        linecolor=ctpTeal,
+        backgroundcolor=ctpTeal!8,
     }
-]{thmbluebox}
+]{thmbluebox} % examples
 
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpYellow},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue
+        linecolor=ctpYellow
     }
-]{thmblueline}
+]{thmblueline} % remarks / notes (line only)
 
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpMauve},
+    bodyfont=\normalfont,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=RawSienna, backgroundcolor=RawSienna!5,
+        linecolor=ctpMauve,
+        backgroundcolor=ctpMauve!10,
     }
-]{thmredbox}
+]{thmredbox} % theorem / lemma / proposition / corollary
 
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{RawSienna!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpMauve},
+    bodyfont=\normalfont,
     numbered=no,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=RawSienna, backgroundcolor=RawSienna!1,
+        linecolor=ctpMauve,
+        backgroundcolor=ctpMauve!1,
     },
     qed=\qedsymbol
 ]{thmproofbox}
 
 \declaretheoremstyle[
-    headfont=\bfseries\sffamily\color{NavyBlue!70!black}, bodyfont=\normalfont,
+    headfont=\bfseries\sffamily\color{ctpTeal},
+    bodyfont=\normalfont,
     numbered=no,
     mdframed={
         linewidth=2pt,
         rightline=false, topline=false, bottomline=false,
-        linecolor=NavyBlue, backgroundcolor=NavyBlue!1,
+        linecolor=ctpTeal,
+        backgroundcolor=ctpTeal!1,
     },
-]{thmexplanationbox}
+]{thmexplanationbox} % explanations
 
-
-
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmgreenbox}
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, mdframed={ nobreak } ]{thmredbox}
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmbluebox}
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont]{thmblueline}
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ rightline=false, topline=false, bottomline=false, }, qed=\qedsymbol ]{thmproofbox}
-% \declaretheoremstyle[headfont=\bfseries\sffamily, bodyfont=\normalfont, numbered=no, mdframed={ nobreak, rightline=false, topline=false, bottomline=false } ]{thmexplanationbox}
 
 \declaretheorem[style=thmgreenbox, name=definition]{definition}
 \declaretheorem[style=thmbluebox, numbered=no, name=example]{eg}
@@ -261,11 +337,11 @@
 \declaretheorem[style=thmredbox, numbered=no, name=corollary]{corollary}
 
 \declaretheorem[style=thmproofbox, name=proof]{replacementproof}
-\renewenvironment{proof}[1][\proofname]{\vspace{-10pt}\begin{replacementproof}}{\end{replacementproof}}
+\renewenvironment{proof}[1][\proofname]{\vspace{-12pt}\begin{replacementproof}}{\end{replacementproof}}
 
 
 \declaretheorem[style=thmexplanationbox, name=proof]{tmpexplanation}
-\newenvironment{explanation}[1][]{\vspace{-10pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
+\newenvironment{explanation}[1][]{\vspace{-12pt}\begin{tmpexplanation}}{\end{tmpexplanation}}
 
 \declaretheorem[style=thmblueline, numbered=no, name=Remark]{remark}
 \declaretheorem[style=thmblueline, numbered=no, name=Note]{note}
@@ -282,31 +358,7 @@
 \usepackage{etoolbox}
 \AtEndEnvironment{vb}{\null\hfill$\diamond$}%
 \AtEndEnvironment{intermezzo}{\null\hfill$\diamond$}%
-% \AtEndEnvironment{opmerking}{\null\hfill$\diamond$}%
-
-% http://tex.stackexchange.com/questions/22119/how-can-i-change-the-spacing-before-theorems-with-amsthm
 \makeatletter
-% \def\thm@space@setup{%
-%   \thm@preskip=\parskip \thm@postskip=0pt
-% }
-
-\newcommand{\oefening}[1]{%
-    \def\@oefening{#1}%
-    \subsection*{Oefening #1}
-}
-
-\newcommand{\suboefening}[1]{%
-    \subsubsection*{Oefening \@oefening.#1}
-}
-
-\newcommand{\exercise}[1]{%
-    \def\@exercise{#1}%
-    \subsection*{Exercise #1}
-}
-
-\newcommand{\subexercise}[1]{%
-    \subsubsection*{Exercise \@exercise.#1}
-}
 
 
 \usepackage{xifthen}
@@ -316,19 +368,9 @@
     \marginpar{\small\textsf{\mbox{#1 #2 #3 #5}}}
 }
 
-\def\@lesson{}%
-\newcommand{\lesson}[3]{
-    \ifthenelse{\isempty{#3}}{%
-        \def\@lesson{Lecture #1}%
-    }{%
-        \def\@lesson{Lecture #1: #3}%
-    }%
-    \subsection*{\@lesson}
-    \testdateparts{#2}
-}
 
 
-%%fakesection Table of contents
+%%Table of contents
 % First add ToC to ToC
 \makeatletter
 \usepackage{etoolbox}
@@ -341,11 +383,23 @@
 \RedeclareSectionCommand[tocnumwidth=4.2em]{part}
 \RedeclareSectionCommand[tocpagenumberwidth=2.2em,tocnumwidth=4.2em]{chapter}
 \RedeclareSectionCommand[tocpagenumberwidth=2.2em,tocnumwidth=2.8em]{section}
-% adjust tocpagenumberwidth manually for large page number: https://tex.stackexchange.com/a/502168
 
 
+%%Mini ToC
+\usepackage[tight]{minitoc}
+\mtcsetfont{parttoc}{chapter}{\sffamily\bfseries}
+\mtcsetfont{parttoc}{section}{\footnotesize\rmfamily\upshape\mdseries}
+\mtcsetfont{parttoc}{subsection}{\footnotesize\rmfamily\upshape\mdseries}
+%\mtcsetdepth{parttoc}{1}
+\setcounter{parttocdepth}{1}
+\renewcommand*{\partheadstartvskip}{\vspace*{20em}}
+\renewcommand*{\partheadendvskip}{}
+%\noptcrule
+\renewcommand\beforeparttoc{\noindent{\bfseries \Large Part \thepart: Contents}}
+%\hspace{\fill}\rule{0.95\linewidth}{2pt}\hspace{\fill}
+\doparttoc[n]
 
-%%fakesection Bibliography
+%%Bibliography
 \usepackage[backend=biber,backref=true,style=alphabetic]{biblatex}
 \DeclareLabelalphaTemplate{
 	\labelelement{
@@ -375,19 +429,5 @@
 \renewcommand{\mkbibnamesuffix}[1]{\textsc{#1}}
 \renewcommand{\finentrypunct}{}
 
-%%fakesection Mini ToC
-\usepackage[tight]{minitoc}
-\mtcsetfont{parttoc}{chapter}{\sffamily\bfseries}
-\mtcsetfont{parttoc}{section}{\footnotesize\rmfamily\upshape\mdseries}
-\mtcsetfont{parttoc}{subsection}{\footnotesize\rmfamily\upshape\mdseries}
-%\mtcsetdepth{parttoc}{1}
-\setcounter{parttocdepth}{1}
-\renewcommand*{\partheadstartvskip}{\vspace*{20em}}
-\renewcommand*{\partheadendvskip}{}
-%\noptcrule
-\renewcommand\beforeparttoc{\noindent{\bfseries \Large Part \thepart: Contents}}
-%\hspace{\fill}\rule{0.95\linewidth}{2pt}\hspace{\fill}
-\doparttoc[n]
-
-%%fakesection Misc haxx
+%% Misc haxx
 \pdfstringdefDisableCommands{\def\Spec{\text{Spec }}\def\sigma{σ}}
